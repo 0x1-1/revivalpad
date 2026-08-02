@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  The .amgp profile format is unchanged from AntiMicroX, so profiles remain
+  interchangeable between the two applications. Only the human readable
+  description is rebranded.
+-->
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-amgp">
+    <comment>@REVIVALPAD_DISPLAY_NAME@ gamepad profile</comment>
+    <comment xml:lang="pl">Plik z profilem @REVIVALPAD_DISPLAY_NAME@</comment>
+    <sub-class-of type="application/xml"/>
+    <glob pattern="*.amgp"/>
+  </mime-type>
+</mime-info>

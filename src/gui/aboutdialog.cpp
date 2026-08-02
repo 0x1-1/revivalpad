@@ -1,0 +1,150 @@
+/* antimicrox Gamepad to KB+M event mapper
+ * Copyright (C) 2015 Travis Nickles <nickles.travis@gmail.com>
+ * Copyright (C) 2020 Jagoda Górska <juliagoda.pl@protonmail.com>
+ * Copyright (C) 2026 0x1-1 (RevivalPad fork modifications)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include "aboutdialog.h"
+#include "ui_aboutdialog.h"
+
+#include "common.h"
+#include "eventhandlerfactory.h"
+
+#include <SDL2/SDL_gamecontroller.h>
+#include <SDL2/SDL_version.h>
+
+#include <QDebug>
+#include <QEvent>
+#include <QFile>
+#include <QResource>
+#include <QStringList>
+#include <QTextStream>
+#include <QtGlobal>
+
+AboutDialog::AboutDialog(QWidget *parent)
+    : QDialog(parent)
+    , ui(new Ui::AboutDialog)
+{
+    ui->setupUi(this);
+    setWindowTitle(tr("About %1").arg(PadderCommon::programName));
+    ui->versionLabel->setText(PadderCommon::programVersion);
+    fillBasedOnLabel();
+    fillInfoTextBrowser();
+}
+
+/**
+ * @brief Makes the fork relationship visible at a glance, so RevivalPad is never
+ * mistaken for an official AntiMicroX release.
+ */
+void AboutDialog::fillBasedOnLabel()
+{
+    ui->basedOnLabel->setText(tr("Based on %1 %2 - <a href=\"%3\">%3</a>")
+                                  .arg(PadderCommon::upstreamName, PadderCommon::upstreamBaseVersion,
+                                       PadderCommon::upstreamProjectPage));
+}
+
+AboutDialog::~AboutDialog() { delete ui; }
+
+void AboutDialog::fillInfoTextBrowser()
+{
+    QStringList finalInfoText = QStringList();
+
+    finalInfoText.append(tr("%1 Version %2").arg(PadderCommon::programName, PadderCommon::programVersion));
+    finalInfoText.append(tr("Based on %1 %2").arg(PadderCommon::upstreamName, PadderCommon::upstreamBaseVersion));
+#ifdef REVIVALPAD_PKG_VERSION
+    finalInfoText.append(tr("Compiled from packaging: %1").arg(REVIVALPAD_PKG_VERSION));
+#else
+    finalInfoText.append(tr("Program Compiled on %1 at %2").arg(__DATE__).arg(__TIME__));
+#endif
+
+    finalInfoText.append(tr("Built Against SDL %1").arg(PadderCommon::sdlVersionCompiled));
+    finalInfoText.append(tr("Running With SDL %1").arg(PadderCommon::sdlVersionUsed));
+
+    finalInfoText.append(tr("Using Qt %1").arg(qVersion()));
+
+    BaseEventHandler *handler = nullptr;
+    EventHandlerFactory *factory = EventHandlerFactory::getInstance();
+
+    if (factory != nullptr)
+    {
+        handler = factory->handler();
+    }
+
+    if (handler != nullptr)
+    {
+        finalInfoText.append(tr("Using Event Handler: %1").arg(handler->getName()));
+    }
+
+#ifdef Q_OS_LINUX
+    QString detected_xdg_session = qgetenv("XDG_SESSION_TYPE");
+    finalInfoText.append(QString("Compositor type: %1").arg(detected_xdg_session));
+#endif
+
+    finalInfoText.append(QString("Host OS: %1 Version: %2 Architecture: %3")
+                             .arg(QSysInfo::productType(), QSysInfo::productVersion(), QSysInfo::currentCpuArchitecture()));
+
+    finalInfoText.append(QString());
+    finalInfoText.append(tr("Source code: %1").arg(PadderCommon::githubProjectPage));
+    finalInfoText.append(tr("Issue tracker: %1").arg(PadderCommon::githubIssuesPage));
+    finalInfoText.append(tr("License: GNU General Public License version 3 or later (GPL-3.0-or-later)"));
+    finalInfoText.append(tr("%1 is a modified fork of %2. Original %2 authors and contributors retain copyright over "
+                            "their respective contributions. %1 modifications are distributed under the GNU General "
+                            "Public License version 3 or later.")
+                             .arg(PadderCommon::programName, PadderCommon::upstreamName));
+    finalInfoText.append(tr("This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by applicable law."));
+
+    ui->infoTextBrowser->setText(finalInfoText.join("\n"));
+
+    // Read Changelog text from resource and put text in text box.
+    QResource changelogFile(":/CHANGELOG.md");
+    QFile temp(changelogFile.absoluteFilePath());
+    QString changelogText;
+
+    if (temp.open(QIODevice::Text | QIODevice::ReadOnly))
+    {
+        QTextStream changelogStream(&temp);
+        changelogText = changelogStream.readAll();
+        temp.close();
+    } else
+    {
+        qWarning() << "Unable to open changelog resource:" << temp.fileName();
+    }
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    ui->changelogText->setMarkdown(changelogText);
+    ui->changelogText->setTextInteractionFlags(ui->changelogText->textInteractionFlags() | Qt::LinksAccessibleByMouse);
+#else
+    ui->changelogText->setPlainText(changelogText);
+#endif
+    ui->changelogText->setOpenExternalLinks(true);
+}
+
+void AboutDialog::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange)
+        retranslateUi();
+
+    QDialog::changeEvent(event);
+}
+
+void AboutDialog::retranslateUi()
+{
+    ui->retranslateUi(this);
+
+    setWindowTitle(tr("About %1").arg(PadderCommon::programName));
+    ui->versionLabel->setText(PadderCommon::programVersion);
+    fillBasedOnLabel();
+}

@@ -1,0 +1,88 @@
+# English (source language) catalogue for the RevivalPad AppStream metadata.
+#
+# Regenerated for RevivalPad 1.0.0. The previous catalogue targeted the
+# AntiMicroX appdata strings, which no longer exist after the rebrand; every
+# msgstr in it was empty, so no translated content was lost.
+#
+# Regenerate with:
+#   itstool -i other/appdata/appdata.its \
+#           -o other/appdata/PO_files/en.pot \
+#           build/other/appdata/io.github._0x1_1.revivalpad.appdata.xml.in
+#
+# Copyright (C) 2026 0x1-1
+# This file is distributed under the same license as the RevivalPad package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: revivalpad 1.0.0\n"
+"POT-Creation-Date: 2026-08-02 00:00+0000\n"
+"PO-Revision-Date: 2026-08-02 00:00+0000\n"
+"Last-Translator: 0x1-1\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. (itstool) path: component/name
+msgid "RevivalPad"
+msgstr ""
+
+#. (itstool) path: component/summary
+msgid "Gamepad input mapper for keyboard, mouse, macros and application actions"
+msgstr ""
+
+#. (itstool) path: description/p
+msgid ""
+"RevivalPad is a graphical program used to map gamepad buttons/joysticks to "
+"keyboard, mouse, scripts and macros. It can be also used for generating SDL2 "
+"configuration (useful for mapping atypical gamepads to generic ones like "
+"xbox360)."
+msgstr ""
+
+#. (itstool) path: description/p
+msgid "Features:"
+msgstr ""
+
+#. (itstool) path: ul/li
+msgid ""
+"Mapping of gamepads/joystick buttons to: keyboard buttons, mouse buttons and "
+"moves, scripts, executables and macros consisting of elements mentioned here."
+msgstr ""
+
+#. (itstool) path: ul/li
+msgid "Assigning multiple switchable sets of mappings to gamepad."
+msgstr ""
+
+#. (itstool) path: ul/li
+msgid "Auto profiles - assign profile to active application window."
+msgstr ""
+
+#. (itstool) path: ul/li
+msgid ""
+"Reads existing .amgp profiles, and imports settings from an installed "
+"AntiMicroX on first run."
+msgstr ""
+
+#. (itstool) path: description/p
+msgid ""
+"RevivalPad is a modified fork of AntiMicroX 3.6.1, which was itself inspired "
+"by QJoyPad. Problems with this build should be reported to the RevivalPad "
+"issue tracker, not to the AntiMicroX maintainers."
+msgstr ""
+
+#. (itstool) path: screenshot/caption
+msgid "Main Window (Light Theme)"
+msgstr ""
+
+#. (itstool) path: screenshot/caption
+msgid "Main Window (Dark Theme)"
+msgstr ""
+
+#. (itstool) path: screenshot/caption
+msgid "About Window"
+msgstr ""
+
+#. (itstool) path: description/p
+msgid "Initial fork of AntiMicroX 3.6.1 and complete product rebrand."
+msgstr ""

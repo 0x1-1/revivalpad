@@ -1,0 +1,180 @@
+/* antimicrox Gamepad to KB+M event mapper
+ * Copyright (C) 2015 Travis Nickles <nickles.travis@gmail.com>
+ * Copyright (C) 2020 Jagoda Górska <juliagoda.pl@protonmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include "eventhandlerfactory.h"
+#include "logger.h"
+
+#include "eventhandlers/baseeventhandler.h"
+
+#include <QApplication>
+#include <QDebug>
+#include <QHash>
+
+static QHash<QString, QString> buildDisplayNames()
+{
+    QHash<QString, QString> temp;
+#ifdef Q_OS_WIN
+    temp.insert("sendinput", "SendInput");
+    #ifdef WITH_VMULTI
+    temp.insert("vmulti", "Vmulti");
+    #endif
+#else
+    temp.insert("xtest", "Xtest");
+    temp.insert("uinput", "uinput");
+#endif
+    return temp;
+}
+
+QHash<QString, QString> handlerDisplayNames = buildDisplayNames();
+
+EventHandlerFactory *EventHandlerFactory::instance = nullptr;
+
+EventHandlerFactory::EventHandlerFactory(const QString &handler, QObject *parent)
+    : QObject(parent)
+    , eventHandler(nullptr)
+{
+    VERBOSE() << "EventHandlerFactory: requested handler=" << handler;
+
+#ifdef WITH_UINPUT
+    if (handler == "uinput")
+    {
+        VERBOSE() << "EventHandlerFactory: initializing uinput handler.";
+        eventHandler = new UInputEventHandler(this);
+    }
+#endif
+
+#ifdef WITH_XTEST
+    if (handler == "xtest")
+    {
+        VERBOSE() << "EventHandlerFactory: initializing xtest handler.";
+        eventHandler = new XTestEventHandler(this);
+    }
+#endif
+
+#if defined(Q_OS_WIN)
+    if (handler == "sendinput")
+    {
+        VERBOSE() << "EventHandlerFactory: initializing sendinput handler.";
+        eventHandler = new WinSendInputEventHandler(this);
+    }
+#endif
+
+    if (eventHandler == nullptr)
+    {
+        WARN() << "EventHandlerFactory: no event handler created for handler identifier" << handler;
+    }
+}
+
+EventHandlerFactory *EventHandlerFactory::getInstance(const QString &handler)
+{
+    if (instance == nullptr)
+    {
+        QStringList temp = buildEventGeneratorList();
+
+        if (!handler.isEmpty() && temp.contains(handler))
+            instance = new EventHandlerFactory(handler);
+        else
+            instance = new EventHandlerFactory(fallBackIdentifier());
+    }
+
+    return instance;
+}
+
+void EventHandlerFactory::deleteInstance()
+{
+    if (instance != nullptr)
+    {
+        delete instance;
+        instance = nullptr;
+    }
+}
+
+BaseEventHandler *EventHandlerFactory::handler()
+{
+    if (instance == nullptr)
+    {
+        ERROR() << "EventHandlerFactory: No instance exists when handler() was called.Closing application.";
+        qApp->quit();
+    }
+    return eventHandler;
+}
+
+QString EventHandlerFactory::fallBackIdentifier()
+{
+#if defined(Q_OS_UNIX)
+    static QString temp = QString();
+    static bool identifier_obtained = false;
+    if (identifier_obtained)
+        return temp;
+    QString detected_xdg_session = qgetenv("XDG_SESSION_TYPE");
+
+    bool compiled_with_x11 = false;
+    bool compiled_with_uinput = false;
+    #if defined(WITH_UINPUT)
+    compiled_with_uinput = true;
+    temp = "uinput";
+    #endif
+    #if defined(WITH_XTEST)
+    compiled_with_x11 = true;
+    temp = "xtest";
+    #endif
+
+    if (detected_xdg_session == "wayland")
+    {
+        if (compiled_with_uinput)
+        {
+            PRINT_STDOUT() << "Selecting uinput as a default event generator.";
+            qInfo() << "uinput is default for wayland";
+            temp = "uinput";
+        } else
+        {
+            qWarning() << "Detected wayland session, but there is no support for uinput detected, defaulting to xtest.";
+            temp = "xtest";
+        }
+    }
+    if (!compiled_with_uinput && !compiled_with_x11)
+        qWarning() << "Neither uinput nor xtest support is detected.";
+    identifier_obtained = true;
+    return temp;
+#elif defined(Q_OS_WIN)
+    return "sendinput";
+#endif
+}
+
+QStringList EventHandlerFactory::buildEventGeneratorList()
+{
+    QStringList temp = QStringList();
+
+#ifdef Q_OS_WIN
+    temp.append("sendinput");
+#else
+    temp.append("xtest");
+    temp.append("uinput");
+#endif
+    return temp;
+}
+
+QString EventHandlerFactory::handlerDisplayName(const QString &handler)
+{
+    QString handlerDispName = QString();
+
+    if (handlerDisplayNames.contains(handler))
+        handlerDispName = handlerDisplayNames.value(handler);
+
+    return handlerDispName;
+}

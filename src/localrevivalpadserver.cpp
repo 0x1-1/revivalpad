@@ -1,0 +1,109 @@
+/* antimicrox Gamepad to KB+M event mapper
+ * Copyright (C) 2015 Travis Nickles <nickles.travis@gmail.com>
+ * Copyright (C) 2020 Jagoda Górska <juliagoda.pl@protonmail>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include "localrevivalpadserver.h"
+
+#include "common.h"
+
+#include <QDebug>
+#include <QLocalServer>
+#include <QLocalSocket>
+
+LocalRevivalPadServer::LocalRevivalPadServer(QObject *parent)
+    : QObject(parent)
+{
+    localServer = new QLocalServer(this);
+}
+
+void LocalRevivalPadServer::startLocalServer()
+{
+    if (localServer != nullptr)
+    {
+        bool removedServer = QLocalServer::removeServer(PadderCommon::localSocketKey);
+
+        if (!removedServer)
+            qDebug() << "Couldn't remove local server named " << PadderCommon::localSocketKey;
+
+        if (localServer->maxPendingConnections() != 1)
+            localServer->setMaxPendingConnections(1);
+
+        if (!localServer->isListening())
+        {
+            if (!localServer->listen(PadderCommon::localSocketKey))
+            {
+                QString message("Could not start signal server. Profiles cannot be reloaded\n");
+                message.append("from command-line");
+                PRINT_STDERR() << tr(message.toStdString().c_str()) << "\n";
+                qDebug() << "Could not start signal server. Profiles cannot be reloaded\n"
+                         << " \nfrom command-line\n " << tr(message.toStdString().c_str());
+            } else
+            {
+                connect(localServer, &QLocalServer::newConnection, this, &LocalRevivalPadServer::handleOutsideConnection);
+            }
+        }
+    } else
+    {
+        qDebug() << "LocalRevivalPadServer::startLocalServer(): localServer is nullptr";
+    }
+}
+
+void LocalRevivalPadServer::handleOutsideConnection()
+{
+    if (localServer != nullptr)
+    {
+        QLocalSocket *socket = localServer->nextPendingConnection();
+
+        if (socket != nullptr)
+        {
+            qDebug() << "There is next pending connection: " << socket->socketDescriptor();
+            connect(socket, &QLocalSocket::disconnected, this, &LocalRevivalPadServer::handleSocketDisconnect);
+            connect(socket, &QLocalSocket::disconnected, socket, &QLocalSocket::deleteLater);
+            checkForMessages(socket);
+        } else
+        {
+            qDebug() << "There isn't next pending connection: ";
+        }
+    } else
+    {
+        qDebug() << "LocalRevivalPadServer::handleOutsideConnection(): localServer is nullptr";
+    }
+}
+
+void LocalRevivalPadServer::handleSocketDisconnect() { emit clientdisconnect(); }
+
+void LocalRevivalPadServer::close() { localServer->close(); }
+
+void LocalRevivalPadServer::checkForMessages(QLocalSocket *socket)
+{
+    DEBUG() << "Waiting for message";
+    socket->waitForConnected(50);
+    bool result = socket->waitForReadyRead(200);
+    DEBUG() << "Waiting for message ended with result: " << (result ? "true" : "false");
+    if (result)
+    {
+        QString msg = QString(socket->readLine(30));
+        DEBUG() << "Received external message:" << msg;
+        if (msg == PadderCommon::unhideCommand)
+        {
+            DEBUG() << "Showing hidden window because of external request";
+            emit showHiddenWindow();
+        }
+    }
+}
+
+QLocalServer *LocalRevivalPadServer::getLocalServer() const { return localServer; }

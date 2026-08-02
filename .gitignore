@@ -1,0 +1,102 @@
+# Build directories
+
+build/
+build-*/
+builds/
+build-dir/
+Build/
+out/
+cmake-build-*/
+.flatpak-builder/
+repo/
+
+# Generated documentation. docs/assets/ holds the README logo and is kept.
+docs/*
+!docs/assets/
+
+# CMake / Ninja / compiler intermediates
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+CPackConfig.cmake
+CPackSourceConfig.cmake
+CTestTestfile.cmake
+install_manifest.txt
+compile_commands.json
+.ninja_deps
+.ninja_log
+build.ninja
+rules.ninja
+*.cmake.tmp
+Testing/
+
+# Compiled objects and binaries
+*.o
+*.obj
+*.lo
+*.slo
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.a
+*.lib
+*.la
+*.lai
+*.pdb
+*.ilk
+*.exp
+*.res
+*.gch
+*.pch
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+
+# Packaging output
+*.zip
+*.tar
+*.tar.*
+*.7z
+*.rar
+*.deb
+*.rpm
+*.AppImage
+*.zsync
+*.dmg
+*.msi
+_CPack_Packages/
+
+# Compiled translations (generated from the .ts sources at build time)
+*.qm
+
+# Test and capture artifacts
+*.log
+Testing/Temporary/
+test-results/
+screenshots-tmp/
+capture-*/
+*.tmp
+
+# Changelogs copied into src/ by the build
+src/Changelog
+src/CHANGELOG.md
+
+# OS clutter
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE- related files
+.vscode/**/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/qt5.natvis.json
+!.vscode/snippets.md
+.idea/
+*.user
+*.user.*

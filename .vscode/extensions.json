@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "cschlosser.doxdocgen",
+        "ms-vscode.cmake-tools",
+        "ms-vscode.cpptools",
+        "theqtcompany.qt",
+        "xaver.clang-format",
+    ]
+}

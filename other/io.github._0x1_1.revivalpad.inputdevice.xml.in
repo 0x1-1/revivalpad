@@ -1,0 +1,35 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+	"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<!--
+	RevivalPad D-Bus interface description.
+
+	BREAKING INTEGRATION CHANGE relative to AntiMicroX: the well-known service
+	name and the interface name are now derived from RevivalPad's application
+	id (@REVIVALPAD_APP_ID@) instead of io.github.antimicrox. Claiming the
+	upstream name would collide with an installed AntiMicroX instance, so any
+	script that talked to AntiMicroX over D-Bus must be updated.
+
+	Object paths are unchanged: /InputDevice/<n>, one per connected device.
+
+	This file is a CMake template; the generated copy lives in the build tree
+	at dbus/@REVIVALPAD_APP_ID@.inputdevice.xml.
+-->
+<node name="/InputDevice">
+	<interface name="@REVIVALPAD_APP_ID@.InputDevice">
+		<method name="getSDLName">
+			<arg name="name" type="s" direction="out"/>
+		</method>
+		<method name="getDescription">
+			<arg name="name" type="s" direction="out"/>
+		</method>
+		<method name="getActiveSetNumber">
+			<arg name="index" type="i" direction="out"/>
+		</method>
+		<method name="getActiveSetName">
+			<arg name="name" type="s" direction="out"/>
+		</method>
+		<method name="setActiveSetNumber">
+			<arg name="index" type="i" direction="in"/>
+		</method>
+	</interface>
+</node>

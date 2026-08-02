@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+  RevivalPad AppStream metadata.
+
+  This file is a CMake template: @VARIABLES@ are resolved from the identity
+  block in the top-level CMakeLists.txt, and itstool then merges translations
+  into the result. Do not hardcode the application id here.
+-->
+<component type="desktop-application">
+  <id>@REVIVALPAD_APP_ID@</id>
+  <name>@REVIVALPAD_DISPLAY_NAME@</name>
+  <summary>@REVIVALPAD_SHORT_DESCRIPTION@ for keyboard, mouse, macros and application actions</summary>
+  <developer id="@REVIVALPAD_APP_ID@">
+    <name>@REVIVALPAD_PUBLISHER@</name>
+  </developer>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <description>
+    <p>@REVIVALPAD_DISPLAY_NAME@ is a graphical program used to map gamepad buttons/joysticks to keyboard, mouse, scripts and macros. It can be also used for generating SDL2 configuration (useful for mapping atypical gamepads to generic ones like xbox360).</p>
+    <p>Features:</p>
+    <ul>
+      <li>Mapping of gamepads/joystick buttons to: keyboard buttons, mouse buttons and moves, scripts, executables and macros consisting of elements mentioned here.</li>
+      <li>Assigning multiple switchable sets of mappings to gamepad.</li>
+      <li>Auto profiles - assign profile to active application window.</li>
+      <li>Reads existing .amgp profiles, and imports settings from an installed AntiMicroX on first run.</li>
+    </ul>
+    <p>@REVIVALPAD_DISPLAY_NAME@ is a modified fork of @REVIVALPAD_UPSTREAM_NAME@ @REVIVALPAD_UPSTREAM_BASE_VERSION@, which was itself inspired by QJoyPad. Problems with this build should be reported to the @REVIVALPAD_DISPLAY_NAME@ issue tracker, not to the @REVIVALPAD_UPSTREAM_NAME@ maintainers.</p>
+  </description>
+  <!--
+    Screenshots are served from this fork's own repository and must show
+    @REVIVALPAD_DISPLAY_NAME@ branding only. Upstream AntiMicroX screenshot URLs
+    were removed deliberately and must not be reintroduced.
+  -->
+  <screenshots>
+    <screenshot type="default">
+      <caption>Main Window (Light Theme)</caption>
+      <image type="source">@REVIVALPAD_RAW_CONTENT_URL@/other/appdata/screenshots/app_light.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Main Window (Dark Theme)</caption>
+      <image type="source">@REVIVALPAD_RAW_CONTENT_URL@/other/appdata/screenshots/app_dark.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>About Window</caption>
+      <image type="source">@REVIVALPAD_RAW_CONTENT_URL@/other/appdata/screenshots/about.png</image>
+    </screenshot>
+  </screenshots>
+  <!--
+    RevivalPad release history only. AntiMicroX releases are recorded in
+    CHANGELOG.md under their own heading and are deliberately not restated here
+    as if they were RevivalPad releases.
+  -->
+  <releases>
+    <release version="@REVIVALPAD_VERSION@" date="2026-08-02" type="stable">
+      <description>
+        <p>Initial fork of @REVIVALPAD_UPSTREAM_NAME@ @REVIVALPAD_UPSTREAM_BASE_VERSION@ and complete product rebrand.</p>
+      </description>
+    </release>
+  </releases>
+  <url type="homepage">@REVIVALPAD_HOMEPAGE@</url>
+  <url type="bugtracker">@REVIVALPAD_ISSUES_URL@</url>
+  <url type="vcs-browser">@REVIVALPAD_HOMEPAGE@</url>
+  <categories>
+    <category>Utility</category>
+    <category>Qt</category>
+  </categories>
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+  </supports>
+  <recommends>
+    <control>gamepad</control>
+  </recommends>
+  <content_rating type="oars-1.1"/>
+  <launchable type="desktop-id">@REVIVALPAD_APP_ID@.desktop</launchable>
+  <provides>
+    <binary>@REVIVALPAD_EXECUTABLE_NAME@</binary>
+    <mediatype>application/x-amgp</mediatype>
+  </provides>
+  <keywords>
+    <keyword>game</keyword>
+    <keyword>gamepad</keyword>
+    <keyword>controller</keyword>
+    <keyword>joystick</keyword>
+    <keyword>keyboard</keyword>
+    <keyword>mouse</keyword>
+    <keyword>mapping</keyword>
+  </keywords>
+</component>

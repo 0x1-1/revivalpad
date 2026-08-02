@@ -1,0 +1,82 @@
+.\" Manpage for revivalpad.
+.\" RevivalPad is a modified fork of AntiMicroX; see FORK_NOTICE.md.
+.\" Report errors or typos on the RevivalPad issue tracker.
+.TH REVIVALPAD "1" "2 August 2026" "revivalpad 1.0.0" "User Commands"
+.SH NAME
+RevivalPad \- map gamepad inputs to keyboard, mouse, macros and application actions
+.SH SYNOPSIS
+.B revivalpad
+[\fIOPTION\fR] [\fIPROFILE\fR]
+.SH DESCRIPTION
+.PP
+RevivalPad is a graphical program used to map gamepad buttons to keyboard, mouse, scripts and macros. However, you can use this program to control any desktop application with a gamepad.
+.PP
+RevivalPad is a modified fork of AntiMicroX 3.6.1. It reads the same \fB.amgp\fR profile format, and on first run it copies an existing AntiMicroX configuration into its own location without modifying the original.
+.TP
+\fB\-\-tray\fR
+launch program in system tray only
+.TP
+\fB\-\-no\-tray\fR
+launch program with the tray menu disabled
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+display this help and exit
+.TP
+\fB\-v\fR, \fB\-\-version\fR
+output version information and exit
+.TP
+\fB\-\-profile\fR \fI<location>\fR
+use specified profile as default for selected controllers. Defaults to all controllers.
+.TP
+\fB\-\-profile\-controller\fR \fI<value>\fR
+apply configuration file to a specific controller. <value> can be an controller index, name, or GUID.
+.TP
+\fB\-\-hidden\fR
+launch program without the main window
+.TP
+\fB\-\-unload\fR \fI[<value>]\fR
+unload currently enabled profile(s). Value can be a controller index, name, or GUID.
+.TP
+\fB\-\-startSet\fR \fI<number>\fR \fI[<value>]\fR
+start joysticks on a specific set. Value can be a controller index, name, or GUID.
+.TP
+\fB\-\-next\fR
+Advance profile loading set options.
+.TP
+\fB\-\-log\-level\fR \fI{debug,info,warn}\fR
+Enable logging. Default: warn
+.TP
+\fB\-l\fR, \fB\-\-list\fR
+Print information about joysticks detected by SDL.
+.TP
+\fB\-\-map\fR \fI<value>\fR
+Open game controller mapping window of selected controller. Value can be a controller index or GUID.
+.TP
+\fB\-\-eventgen\fR \fI{xtest,uinput}\fR
+Choose between using XTest support and uinput support for event generation. Default: xtest.
+.SH FILES
+.TP
+\fI$XDG_CONFIG_HOME/revivalpad/revivalpad_settings.ini\fR
+Application settings. Falls back to \fI~/.config/revivalpad/revivalpad_settings.ini\fR.
+.SH "D-BUS"
+RevivalPad claims the session bus name \fBio.github._0x1_1.revivalpad\fR and exports one object per device at \fI/InputDevice/<n>\fR implementing \fBio.github._0x1_1.revivalpad.InputDevice\fR. This differs from AntiMicroX, so that both applications can be installed at once.
+.SH AUTHORS
+RevivalPad fork modifications: 0x1-1.
+.PP
+RevivalPad is based on AntiMicroX, whose authors retain copyright over their
+respective contributions:
+.PP
+Paweł Kotiuk (kotiuk@zohomail.eu)
+Jagoda Górska (juliagoda.pl@protonmail.com)
+Jeff Backus (jeff@jsbackus.com)
+Travis Nickles (nickles.travis@gmail.com)
+and other contributors: https://github.com/AntiMicroX/antimicrox/graphs/contributors
+.SH "REPORTING BUGS"
+Report bugs in RevivalPad to the RevivalPad issue tracker: https://github.com/0x1-1/revivalpad/issues
+.PP
+Do not report problems with this build to the AntiMicroX maintainers.
+.SH COPYRIGHT
+Copyright (C) 2026 0x1-1 and the AntiMicroX authors.
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.

@@ -1,0 +1,53 @@
+/* RevivalPad Windows resource script.
+ *
+ * Copyright (C) 2026 0x1-1 (RevivalPad fork modifications)
+ *
+ * CMake template: @VARIABLES@ come from the identity block in CMakeLists.txt,
+ * so the executable's embedded metadata can never drift from the product
+ * identity. The generated file lives in the build tree.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ */
+
+#include <windows.h>
+
+/* Embedded application icon. The path is resolved through the resource
+ * compiler's include search path, which CMake points at src/. */
+IDI_ICON1 ICON DISCARDABLE "images/revivalpad.ico"
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION    @REVIVALPAD_MAJOR_VERSION@,@REVIVALPAD_MINOR_VERSION@,@REVIVALPAD_PATCH_VERSION@,0
+PRODUCTVERSION @REVIVALPAD_MAJOR_VERSION@,@REVIVALPAD_MINOR_VERSION@,@REVIVALPAD_PATCH_VERSION@,0
+FILEFLAGSMASK  VS_FFI_FILEFLAGSMASK
+#ifdef _DEBUG
+FILEFLAGS      VS_FF_DEBUG
+#else
+FILEFLAGS      0x0L
+#endif
+FILEOS         VOS_NT_WINDOWS32
+FILETYPE       VFT_APP
+FILESUBTYPE    VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"   /* U.S. English, Unicode */
+        BEGIN
+            VALUE "CompanyName",      "@REVIVALPAD_PUBLISHER@"
+            VALUE "FileDescription",  "@REVIVALPAD_DESCRIPTION@"
+            VALUE "FileVersion",      "@REVIVALPAD_VERSION@"
+            VALUE "InternalName",     "@REVIVALPAD_EXECUTABLE_NAME@"
+            VALUE "OriginalFilename", "@REVIVALPAD_EXECUTABLE_NAME@.exe"
+            VALUE "ProductName",      "@REVIVALPAD_DISPLAY_NAME@"
+            VALUE "ProductVersion",   "@REVIVALPAD_VERSION@"
+            VALUE "LegalCopyright",   "Copyright (C) 2026 0x1-1 and the @REVIVALPAD_UPSTREAM_NAME@ authors. GPL-3.0-or-later."
+            VALUE "Comments",         "@REVIVALPAD_DISPLAY_NAME@ is a modified fork of @REVIVALPAD_UPSTREAM_NAME@ @REVIVALPAD_UPSTREAM_BASE_VERSION@. See FORK_NOTICE.md."
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
