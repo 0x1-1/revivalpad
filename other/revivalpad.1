@@ -43,14 +43,17 @@ start joysticks on a specific set. Value can be a controller index, name, or GUI
 \fB\-\-next\fR
 Advance profile loading set options.
 .TP
-\fB\-\-log\-level\fR \fI{debug,info,warn}\fR
+\fB\-\-log\-level\fR \fI{warn,info,verbose,debug}\fR
 Enable logging. Default: warn
+.TP
+\fB\-\-log\-file\fR \fI<filename>\fR
+Choose a file for the log to be written to.
+.TP
+\fB\-\-show\fR
+Show the main window even if starting minimised or hidden.
 .TP
 \fB\-l\fR, \fB\-\-list\fR
 Print information about joysticks detected by SDL.
-.TP
-\fB\-\-map\fR \fI<value>\fR
-Open game controller mapping window of selected controller. Value can be a controller index or GUID.
 .TP
 \fB\-\-eventgen\fR \fI{xtest,uinput}\fR
 Choose between using XTest support and uinput support for event generation. Default: xtest.

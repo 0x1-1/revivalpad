@@ -479,11 +479,17 @@ void UInputEventHandler::printPostMessages()
         {
             QMessageBox msgBox;
             msgBox.setTextFormat(Qt::RichText);
-            msgBox.setText(
-                QObject::tr("Unable to open uinput files, this may cause problems with generating events.\nTo check "
-                            "possible solutions please visit: ")
-                    .append("<a href='" REVIVALPAD_WIKI_URL "/Open-uinput-error'>" REVIVALPAD_DISPLAY_NAME " Wiki</a>"));
-            msgBox.setDetailedText(lastErrorString);
+            msgBox.setText(QObject::tr("Unable to open uinput files, this may cause problems with generating events. "
+                                       "See the details below for possible solutions. If the problem persists, please "
+                                       "report it at: ")
+                               .append("<a href='" REVIVALPAD_ISSUES_URL "'>" REVIVALPAD_ISSUES_URL "</a>"));
+            msgBox.setDetailedText(
+                QObject::tr("Possible solutions:\n"
+                            " - load the uinput kernel module: sudo modprobe uinput\n"
+                            " - install the udev rule shipped as 60-revivalpad-uinput.rules and reconnect the device\n"
+                            " - after installing the rule for the first time, log out and log back in\n\n"
+                            "Error: %1")
+                    .arg(lastErrorString));
             msgBox.exec();
         }
 #endif

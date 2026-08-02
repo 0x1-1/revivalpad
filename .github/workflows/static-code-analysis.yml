@@ -51,7 +51,7 @@ jobs:
         # Infer is a static analysis tool, it produces a list of potential bugs.
         # https://fbinfer.com/
         # How to see the results?
-        # 1. Goto Static Code Analysis GitHub Actions: https://github.com/0x1-1/revivalpad/actions/workflows/static-code-analysis.yml
+        # 1. Goto Static Code Analysis GitHub Actions: https://github.com/0x1-1/revivalpad/actions/workflows/static-code-analysis.yml (runs on push to master and manual dispatch)
         # 2. Click on the relevent workflow run (runs on push, pull_requestand manually using workflow_dispatch)
         # 3. Here you can see the artifact named "report", Download it to see the details.
         # 4. Or you can click on the "Infer Code Analysis" and check the "Run Infer" step.

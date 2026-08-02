@@ -10,7 +10,7 @@ permissions:
     contents: write
 
 # Artifact naming produced by this workflow:
-#   revivalpad_1.0.0_amd64.deb                        (CPack DEB-DEFAULT)
+#   revivalpad_1.0.0_<ubuntu-image>_amd64.deb         (CPack DEB-DEFAULT + rename step)
 #   RevivalPad-1.0.0-x86_64.AppImage                  (linuxdeploy + $VERSION)
 #   RevivalPad-1.0.0-x86_64.AppImage.zsync
 #   revivalpad-1.0.0-windows-x86_64.exe               (CPack NSIS)
@@ -113,12 +113,16 @@ jobs:
 
             # UPDATE_INFORMATION describes where information about updates can be found.
             # It must point at THIS fork's releases, never at AntiMicroX's.
+            # gh-releases-zsync resolves the newest matching .zsync through the GitHub
+            # API, so shipped AppImages keep updating across version bumps (a plain
+            # zsync|...latest/download/RevivalPad-<ver>... URL would 404 as soon as a
+            # newer release replaced that file name).
             - name: Create AppImage file
               env:
                   VERSION: ${{ steps.version.outputs.version }}
               run: |
                   cd build
-                  export UPDATE_INFORMATION="zsync|https://github.com/$GITHUB_REPOSITORY/releases/latest/download/RevivalPad-$VERSION-x86_64.AppImage.zsync"
+                  export UPDATE_INFORMATION="gh-releases-zsync|0x1-1|revivalpad|latest|RevivalPad-*-x86_64.AppImage.zsync"
                   ./linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt
                   ./appimagetool-x86_64.AppImage AppDir/ -u "$UPDATE_INFORMATION"
 

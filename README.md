@@ -43,8 +43,9 @@ revivalpad --help     # all options
 ```
 
 Settings live in `~/.config/revivalpad/` on Linux and
-`%LocalAppData%\revivalpad\` on Windows. Existing AntiMicroX settings and
-`.amgp` profiles are imported automatically on first run.
+`%LocalAppData%\revivalpad\` on Windows. Existing AntiMicroX settings are
+imported automatically on first run, and your `.amgp` profiles keep working
+as they are - no conversion needed.
 
 ## License
 

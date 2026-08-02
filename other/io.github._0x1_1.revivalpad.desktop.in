@@ -2,10 +2,6 @@
 Name=@REVIVALPAD_DISPLAY_NAME@
 GenericName=@REVIVALPAD_SHORT_DESCRIPTION@
 Comment=@REVIVALPAD_DESCRIPTION@
-Comment[sr]=Користите џојстик или играћу тастатуру за управљање различитим програмима
-Comment[fr]=Utilisez une manette de jeu pour commander un logiciel
-Comment[de]=Nutze ein Gamepad, um Programme/Spiele zu steuern
-Comment[uk]=Використовуйте ігровий маніпулятор для керування програмами
 Exec=@REVIVALPAD_EXECUTABLE_NAME@ --show %f
 Icon=@REVIVALPAD_APP_ID@
 StartupNotify=true

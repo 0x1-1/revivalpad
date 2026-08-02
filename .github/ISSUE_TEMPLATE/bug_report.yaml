@@ -39,10 +39,11 @@ body:
       Copy and paste text from Info window (Help->About->Info)
       ❗Without this information issue will be instantly closed.❗
     placeholder: |
-      Program Version 3.3.2
-      Built Against SDL 2.24.0
-      Running With SDL 2.24.0
-      Using Qt 5.15.7
+      RevivalPad Version 1.0.0
+      Based on AntiMicroX 3.6.1
+      Built Against SDL 2.32.10
+      Running With SDL 2.32.10
+      Using Qt 6.10.2
       Using Event Handler: XTest
       Compositor type: x11
       Host OS: Windows Version: 10 Architecture: x86_64 

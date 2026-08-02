@@ -24,7 +24,7 @@ else()
     # Since 5.15 QT commands are universal
     QT5_ADD_TRANSLATION(revivalpad_QMFILES ${revivalpad_TRANSLATIONS})
     if(UPDATE_TRANSLATIONS)
-        warning("Updating translations only for QT 5.15 or newer.")
+        message(WARNING "Updating translations is only supported with Qt 5.15 or newer.")
     endif()
 endif()
 

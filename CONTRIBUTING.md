@@ -36,7 +36,6 @@ RevivalPad does not currently use a hosted translation platform. Submit translat
 pull requests against the `.ts` files. The product name should remain `RevivalPad` in every
 language unless a language genuinely requires grammatical treatment of it.
 
-Translation status
 
 To refresh the catalogues after changing source strings:
 

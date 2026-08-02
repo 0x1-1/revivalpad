@@ -86,3 +86,39 @@ msgstr ""
 #. (itstool) path: description/p
 msgid "Initial fork of AntiMicroX 3.6.1 and complete product rebrand."
 msgstr ""
+
+#. (itstool) path: categories/category
+msgid "Utility"
+msgstr ""
+
+#. (itstool) path: categories/category
+msgid "Qt"
+msgstr ""
+
+#. (itstool) path: keywords/keyword
+msgid "game"
+msgstr ""
+
+#. (itstool) path: keywords/keyword
+msgid "gamepad"
+msgstr ""
+
+#. (itstool) path: keywords/keyword
+msgid "controller"
+msgstr ""
+
+#. (itstool) path: keywords/keyword
+msgid "joystick"
+msgstr ""
+
+#. (itstool) path: keywords/keyword
+msgid "keyboard"
+msgstr ""
+
+#. (itstool) path: keywords/keyword
+msgid "mouse"
+msgstr ""
+
+#. (itstool) path: keywords/keyword
+msgid "mapping"
+msgstr ""

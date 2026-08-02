@@ -285,7 +285,10 @@ bool WinExtras::containsFileAssociationinRegistry()
 
     QSettings associationReg(FILEASSOCIATIONKEY, QSettings::NativeFormat);
     QString temp = associationReg.value("Default", "").toString();
-    if (!temp.isEmpty())
+    // Only our own ProgID counts. Any other value (e.g. AntiMicroX's) means the
+    // association still has to be (re)written when the user enables the option;
+    // matching removeFileAssociationFromRegistry(), which is ProgID-aware too.
+    if (temp == "RevivalPad.amgp")
     {
         result = true;
     }

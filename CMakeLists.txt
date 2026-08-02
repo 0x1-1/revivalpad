@@ -349,9 +349,6 @@ set(revivalpad_HEADERS
         src/gamecontroller/gamecontrollerset.h
         src/gamecontroller/gamecontrollertrigger.h
         src/gamecontroller/gamecontrollertriggerbutton.h
-        src/gamecontroller/xml/gamecontrollerdpadxml.h
-        src/gamecontroller/xml/gamecontrollertriggerxml.h
-        src/gamecontroller/xml/gamecontrollerxml.h
         src/gamecontrollerexample.h
         src/globalvariables.h
         src/gui/aboutdialog.h
@@ -981,7 +978,7 @@ It is a modified fork of AntiMicroX ${REVIVALPAD_UPSTREAM_BASE_VERSION}. See FOR
     message("Preparing documentation for DEB package")
     add_custom_target(package_docummentation ALL)
 
-    #Compress changelog and save it as share/doc/xournalpp/changelog.Debian.gz
+    #Compress changelog and save it as share/doc/revivalpad/changelog.gz
     add_custom_command(TARGET package_docummentation PRE_BUILD
             COMMAND gzip -c -9 -n "${PROJECT_SOURCE_DIR}/CHANGELOG.md" > "changelog.gz" VERBATIM)
     install(FILES "${CMAKE_CURRENT_BINARY_DIR}/changelog.gz" DESTINATION "share/doc/${REVIVALPAD_LOWERCASE_NAME}/")
@@ -1018,13 +1015,6 @@ endif()
 set(CPACK_PACKAGE_EXECUTABLES "${REVIVALPAD_EXECUTABLE_NAME};${REVIVALPAD_DISPLAY_NAME}")
 set(CPACK_CREATE_DESKTOP_LINKS "${REVIVALPAD_EXECUTABLE_NAME}")
 include(CPack)
-
-if(WIN32 AND NOT UNIX AND NOT PORTABLE_WIN)
-configure_file(
-    ${PROJECT_SOURCE_DIR}/cmake/modules/NSIS.definitions.nsh.in
-    ${CMAKE_CURRENT_BINARY_DIR}/assets/nsis/NSIS.definitions.nsh
-    )
-endif()
 
 
 ###############################

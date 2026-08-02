@@ -5,8 +5,7 @@
   PROVISIONAL: the supplied brand artwork is raster, so this file embeds a
   512x512 PNG instead of vector paths. It renders correctly at any size a
   desktop asks for, but it will not stay crisp when scaled far beyond 512px.
-  Replace with traced paths once native SVG masters exist - see
-  branding/README.md.
+  Replace with traced paths once native SVG masters exist.
 
   Copyright (C) 2026 0x1-1. GPL-3.0-or-later.
 -->

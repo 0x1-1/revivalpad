@@ -51,12 +51,13 @@ into two groups, and neither may be "cleaned up":
   copyright notices.
 * The AntiMicroX section of `CHANGELOG.md`, which is the upstream release
   history preserved verbatim under its own heading.
-* The About dialog's Credits tab: original AntiMicro / AntiMicroX authors,
-  links to the upstream repository and contributor list, and Travis Nickles'
-  original "About Development" text.
+* The About dialog: original AntiMicro / AntiMicroX authors and links to the
+  upstream repository and contributor list in the Credits tab, and Travis
+  Nickles' original text in the "About Development" tab.
 * The upstream identity block in `CMakeLists.txt` (`REVIVALPAD_UPSTREAM_*`),
-  which is the single source of the attribution shown in the About dialog, the
-  man page, the AppStream description and the Debian package description.
+  the single source of the attribution shown in the About dialog, the AppStream
+  description and the Debian package description. (`other/revivalpad.1` is a
+  static troff file and repeats the same attribution by hand.)
 * The `AUTHORS` section of `other/revivalpad.1`.
 * A provenance comment in `cmake/modules/FindSDL2.cmake` recording a local
   modification, and CI comments citing upstream issue

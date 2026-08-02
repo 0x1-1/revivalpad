@@ -93,7 +93,7 @@ MainWindow::MainWindow(QMap<SDL_JoystickID, InputDevice *> *joysticks, CommandLi
 {
     ui->setupUi(this);
 
-    setWindowIcon(PadderCommon::loadIcon(REVIVALPAD_LOWERCASE_NAME, ":/images/revivalpad.png"));
+    setWindowIcon(PadderCommon::loadIcon(REVIVALPAD_APP_ID, ":/images/revivalpad.png"));
     ui->stackedWidget->setCurrentIndex(0);
 
     m_translator = nullptr;

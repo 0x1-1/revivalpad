@@ -6,7 +6,7 @@
 
 Forked from AntiMicroX 3.6.1, commit `e0e11628aa6f20ddbce32caba496aa12ef8f84d3`.
 No application functionality was added, removed or redesigned. See
-[FORK_NOTICE.md](FORK_NOTICE.md) for the full record.
+[FORK_NOTICE.md](https://github.com/0x1-1/revivalpad/blob/master/FORK_NOTICE.md) for the full record.
 
 **Product identity:**
 
