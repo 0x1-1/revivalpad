@@ -44,7 +44,7 @@ struct Source
     QString productName; /**< Human readable product name, shown to the user. */
 };
 
-enum class Status
+enum class Outcome
 {
     NotNeeded,     /**< A RevivalPad configuration already exists. Nothing was touched. */
     NoSourceFound, /**< Nothing to import. A fresh install. */
@@ -54,7 +54,7 @@ enum class Status
 
 struct Result
 {
-    Status status = Status::NoSourceFound;
+    Outcome outcome = Outcome::NoSourceFound;
     QString sourcePath;  /**< Populated for Copied and Failed. */
     QString productName; /**< Populated for Copied and Failed. */
 };

@@ -19,9 +19,9 @@
 #include "editalldefaultautoprofiledialog.h"
 #include "ui_editalldefaultautoprofiledialog.h"
 
-#include "revivalpadsettings.h"
 #include "autoprofileinfo.h"
 #include "common.h"
+#include "revivalpadsettings.h"
 
 #include <QDebug>
 #include <QFileDialog>

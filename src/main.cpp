@@ -17,7 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "revivalpadsettings.h"
 #include "antkeymapper.h"
 #include "applaunchhelper.h"
 #include "autoprofileinfo.h"
@@ -30,6 +29,7 @@
 #include "joysensortype.h"
 #include "localrevivalpadserver.h"
 #include "mainwindow.h"
+#include "revivalpadsettings.h"
 #include "setjoystick.h"
 #include "settingsmigration.h"
 
@@ -191,39 +191,35 @@ void importLegacySettingsIfExist()
     const QString target = PadderCommon::configFilePath();
     const SettingsMigration::Result result = SettingsMigration::migrate(target, SettingsMigration::defaultSources());
 
-    switch (result.status)
+    switch (result.outcome)
     {
-    case SettingsMigration::Status::NotNeeded:
+    case SettingsMigration::Outcome::NotNeeded:
         DEBUG() << "Found " REVIVALPAD_DISPLAY_NAME " settings file: " << target;
         return;
 
-    case SettingsMigration::Status::NoSourceFound:
+    case SettingsMigration::Outcome::NoSourceFound:
         DEBUG() << "No importable legacy settings found. Starting with defaults.";
         return;
 
-    case SettingsMigration::Status::Copied:
-    {
+    case SettingsMigration::Outcome::Copied: {
         DEBUG() << "Imported settings from " << result.productName << ": " << result.sourcePath;
         QMessageBox msgBox;
         msgBox.setWindowTitle(QStringLiteral(REVIVALPAD_DISPLAY_NAME));
-        msgBox.setText(
-            QObject::tr("Your %1 settings (previously stored in %2) have been imported into\n%3\n"
-                        "The original files were left untouched - you can keep using %1 alongside %4.")
-                .arg(result.productName, result.sourcePath, target, QStringLiteral(REVIVALPAD_DISPLAY_NAME)));
+        msgBox.setText(QObject::tr("Your %1 settings (previously stored in %2) have been imported into\n%3\n"
+                                   "The original files were left untouched - you can keep using %1 alongside %4.")
+                           .arg(result.productName, result.sourcePath, target, QStringLiteral(REVIVALPAD_DISPLAY_NAME)));
         msgBox.exec();
         return;
     }
 
-    case SettingsMigration::Status::Failed:
-    {
+    case SettingsMigration::Outcome::Failed: {
         WARN() << "Problem with importing settings from: " << result.sourcePath << " to: " << target;
         QMessageBox msgBox;
         msgBox.setWindowTitle(QStringLiteral(REVIVALPAD_DISPLAY_NAME));
-        msgBox.setText(
-            QObject::tr("Some problem with settings migration occurred.\nYour original %1 configuration is still "
-                        "stored in\n%2\nbut it could not be copied to\n%3\nYou can migrate manually by copying "
-                        "that file to the location above and renaming it to %4.")
-                .arg(result.productName, result.sourcePath, target, PadderCommon::configFileName));
+        msgBox.setText(QObject::tr("Some problem with settings migration occurred.\nYour original %1 configuration is still "
+                                   "stored in\n%2\nbut it could not be copied to\n%3\nYou can migrate manually by copying "
+                                   "that file to the location above and renaming it to %4.")
+                           .arg(result.productName, result.sourcePath, target, PadderCommon::configFileName));
         msgBox.exec();
         return;
     }
@@ -435,8 +431,7 @@ int main(int argc, char *argv[])
 
     if (QDir(transPath).entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries).count() == 0)
     {
-        qtTranslator.load(QString("qt_").append(targetLang),
-                          "/app/share/" REVIVALPAD_TRANSLATION_DIR_NAME "/translations");
+        qtTranslator.load(QString("qt_").append(targetLang), "/app/share/" REVIVALPAD_TRANSLATION_DIR_NAME "/translations");
     } else
     {
         qtTranslator.load(QString("qt_").append(targetLang), transPath);
@@ -447,15 +442,16 @@ int main(int argc, char *argv[])
 
     QTranslator myappTranslator;
 
-    if (QDir("/app/share/" REVIVALPAD_TRANSLATION_DIR_NAME).entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries).count() > 0)
+    if (QDir("/app/share/" REVIVALPAD_TRANSLATION_DIR_NAME).entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries).count() >
+        0)
     {
         myappTranslator.load(QString(REVIVALPAD_TRANSLATION_PREFIX).append(targetLang),
                              "app/share/" REVIVALPAD_TRANSLATION_DIR_NAME "/translations");
     } else
     {
-        myappTranslator.load(QString(REVIVALPAD_TRANSLATION_PREFIX).append(targetLang),
-                             QApplication::applicationDirPath().append(
-                                 "/../share/" REVIVALPAD_TRANSLATION_DIR_NAME "/translations"));
+        myappTranslator.load(
+            QString(REVIVALPAD_TRANSLATION_PREFIX).append(targetLang),
+            QApplication::applicationDirPath().append("/../share/" REVIVALPAD_TRANSLATION_DIR_NAME "/translations"));
     }
 
     revivalpad.installTranslator(&myappTranslator);

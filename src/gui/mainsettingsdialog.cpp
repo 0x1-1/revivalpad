@@ -20,13 +20,13 @@
 #include "mainsettingsdialog.h"
 
 #include "addeditautoprofiledialog.h"
-#include "revivalpadsettings.h"
 #include "autoprofileinfo.h"
 #include "common.h"
 #include "editalldefaultautoprofiledialog.h"
 #include "eventhandlerfactory.h"
 #include "globalvariables.h"
 #include "inputdevice.h"
+#include "revivalpadsettings.h"
 
 #ifdef WITH_X11
     #include "x11extras.h"
@@ -56,8 +56,9 @@
 #include <QWidget>
 
 static const QString RUNATSTARTUPREGKEY("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run");
-static const QString RUNATSTARTUPLOCATION(QString("%0\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\" REVIVALPAD_EXECUTABLE_NAME ".lnk")
-                                              .arg(QString::fromUtf8(qgetenv("AppData"))));
+static const QString
+    RUNATSTARTUPLOCATION(QString("%0\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\" REVIVALPAD_EXECUTABLE_NAME ".lnk")
+                             .arg(QString::fromUtf8(qgetenv("AppData"))));
 
 MainSettingsDialog::MainSettingsDialog(RevivalPadSettings *settings, QList<InputDevice *> *devices, QWidget *parent)
     : QDialog(parent, Qt::Dialog)

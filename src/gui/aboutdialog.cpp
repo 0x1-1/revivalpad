@@ -51,9 +51,9 @@ AboutDialog::AboutDialog(QWidget *parent)
  */
 void AboutDialog::fillBasedOnLabel()
 {
-    ui->basedOnLabel->setText(tr("Based on %1 %2 - <a href=\"%3\">%3</a>")
-                                  .arg(PadderCommon::upstreamName, PadderCommon::upstreamBaseVersion,
-                                       PadderCommon::upstreamProjectPage));
+    ui->basedOnLabel->setText(
+        tr("Based on %1 %2 - <a href=\"%3\">%3</a>")
+            .arg(PadderCommon::upstreamName, PadderCommon::upstreamBaseVersion, PadderCommon::upstreamProjectPage));
 }
 
 AboutDialog::~AboutDialog() { delete ui; }

@@ -48,13 +48,12 @@ class TestProductIdentity : public QObject
         QCOMPARE(PadderCommon::programName, QStringLiteral("RevivalPad"));
 
         // programVersion gains a "-d" suffix in debug builds; compare the numeric head.
-        const QString expected = QStringLiteral("%1.%2.%3")
-                                     .arg(PROJECT_MAJOR_VERSION)
-                                     .arg(PROJECT_MINOR_VERSION)
-                                     .arg(PROJECT_PATCH_VERSION);
-        QVERIFY2(PadderCommon::programVersion.startsWith(expected),
-                 qPrintable(QStringLiteral("programVersion '%1' does not start with '%2'")
-                                .arg(PadderCommon::programVersion, expected)));
+        const QString expected =
+            QStringLiteral("%1.%2.%3").arg(PROJECT_MAJOR_VERSION).arg(PROJECT_MINOR_VERSION).arg(PROJECT_PATCH_VERSION);
+        QVERIFY2(
+            PadderCommon::programVersion.startsWith(expected),
+            qPrintable(
+                QStringLiteral("programVersion '%1' does not start with '%2'").arg(PadderCommon::programVersion, expected)));
         QVERIFY(PROJECT_MAJOR_VERSION >= 1);
     }
 

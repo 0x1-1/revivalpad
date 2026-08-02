@@ -18,7 +18,6 @@
 
 #include "inputdevice.h"
 
-#include "revivalpadsettings.h"
 #include "common.h"
 #include "globalvariables.h"
 #include "joybuttontypes/joycontrolstickbutton.h"
@@ -27,6 +26,7 @@
 #include "joycontrolstick.h"
 #include "joydpad.h"
 #include "joysensor.h"
+#include "revivalpadsettings.h"
 #include "vdpad.h"
 
 #include <typeinfo>

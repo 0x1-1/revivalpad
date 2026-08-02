@@ -19,10 +19,10 @@
 #include "addeditautoprofiledialog.h"
 #include "ui_addeditautoprofiledialog.h"
 
-#include "revivalpadsettings.h"
 #include "autoprofileinfo.h"
 #include "common.h"
 #include "inputdevice.h"
+#include "revivalpadsettings.h"
 
 #if defined(Q_OS_UNIX)
     #ifdef WITH_X11

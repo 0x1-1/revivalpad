@@ -22,7 +22,6 @@
 
 #include "aboutdialog.h"
 #include "advancestickassignmentdialog.h"
-#include "revivalpadsettings.h"
 #include "autoprofileinfo.h"
 #include "calibration.h"
 #include "commandlineutility.h"
@@ -41,6 +40,7 @@
 #include "joytabwidget.h"
 #include "mainsettingsdialog.h"
 #include "qkeydisplaydialog.h"
+#include "revivalpadsettings.h"
 #include "xml/inputdevicexml.h"
 #include "xml/joybuttonslotxml.h"
 
@@ -1829,7 +1829,7 @@ void MainWindow::convertGUIDtoUniqueID(InputDevice *currentDevice, QString contr
         this, tr("Reading old profile"),
         tr("This profile uses controllers' GUID numbers. Would you like to change GUID numbers to UniqueID in this file for "
            "use in identical gamecontrollers? Such old profiles have not been loadable since AntiMicroX 2.25, "
-                   "the upstream project this application is based on."),
+           "the upstream project this application is based on."),
         QMessageBox::Yes, QMessageBox::No);
 
     switch (exec)

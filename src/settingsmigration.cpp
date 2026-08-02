@@ -43,7 +43,7 @@ Result migrate(const QString &targetPath, const QList<Source> &sources)
     if (target.exists() && target.isFile())
     {
         // Never overwrite an existing RevivalPad configuration.
-        result.status = Status::NotNeeded;
+        result.outcome = Outcome::NotNeeded;
         return result;
     }
 
@@ -64,7 +64,7 @@ Result migrate(const QString &targetPath, const QList<Source> &sources)
 
     if (result.productName.isEmpty())
     {
-        result.status = Status::NoSourceFound;
+        result.outcome = Outcome::NoSourceFound;
         return result;
     }
 
@@ -76,7 +76,7 @@ Result migrate(const QString &targetPath, const QList<Source> &sources)
     // QFile::copy() refuses to overwrite, which is the behaviour we want; the
     // existence check above already established the target is absent.
     const bool copied = QFile::copy(result.sourcePath, targetPath);
-    result.status = copied ? Status::Copied : Status::Failed;
+    result.outcome = copied ? Outcome::Copied : Outcome::Failed;
     return result;
 }
 

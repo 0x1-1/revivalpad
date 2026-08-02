@@ -21,9 +21,9 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#include "revivalpadsettings.h"
 #include "config.h"
 #include "mousehelper.h"
+#include "revivalpadsettings.h"
 
 #include <QDir>
 #include <QIcon>

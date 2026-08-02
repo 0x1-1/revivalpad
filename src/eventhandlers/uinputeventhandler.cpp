@@ -482,8 +482,7 @@ void UInputEventHandler::printPostMessages()
             msgBox.setText(
                 QObject::tr("Unable to open uinput files, this may cause problems with generating events.\nTo check "
                             "possible solutions please visit: ")
-                    .append(
-                        "<a href='" REVIVALPAD_WIKI_URL "/Open-uinput-error'>" REVIVALPAD_DISPLAY_NAME " Wiki</a>"));
+                    .append("<a href='" REVIVALPAD_WIKI_URL "/Open-uinput-error'>" REVIVALPAD_DISPLAY_NAME " Wiki</a>"));
             msgBox.setDetailedText(lastErrorString);
             msgBox.exec();
         }

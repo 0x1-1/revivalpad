@@ -46,8 +46,8 @@ class GameController : public InputDevice
     Q_OBJECT
 
   public:
-    explicit GameController(SDL_GameController *controller, int deviceIndex, RevivalPadSettings *settings, int counterUniques,
-                            QObject *parent);
+    explicit GameController(SDL_GameController *controller, int deviceIndex, RevivalPadSettings *settings,
+                            int counterUniques, QObject *parent);
 
     virtual QString getName() override;
     virtual QString getSDLName() override;

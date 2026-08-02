@@ -18,10 +18,10 @@
 
 #include "sdleventreader.h"
 
-#include "revivalpadsettings.h"
 #include "common.h"
 #include "globalvariables.h"
 #include "inputdevice.h"
+#include "revivalpadsettings.h"
 //#include "logger.h"
 
 #include <SDL2/SDL.h>

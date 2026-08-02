@@ -79,7 +79,7 @@ class TestSettingsMigration : public QObject
     void noSourcesLeavesFreshInstallAlone()
     {
         const auto result = SettingsMigration::migrate(target(), {});
-        QCOMPARE(result.status, SettingsMigration::Status::NoSourceFound);
+        QCOMPARE(result.outcome, SettingsMigration::Outcome::NoSourceFound);
         QVERIFY(!QFile::exists(target()));
     }
 
@@ -88,7 +88,7 @@ class TestSettingsMigration : public QObject
         // configLegacyFilePath() returns an empty string on Windows; an empty
         // candidate must be ignored rather than treated as a real file.
         const auto result = SettingsMigration::migrate(target(), {{QString(), QStringLiteral("antimicroX")}});
-        QCOMPARE(result.status, SettingsMigration::Status::NoSourceFound);
+        QCOMPARE(result.outcome, SettingsMigration::Outcome::NoSourceFound);
     }
 
     // ---- Import ---------------------------------------------------------
@@ -100,7 +100,7 @@ class TestSettingsMigration : public QObject
 
         const auto result = SettingsMigration::migrate(target(), {{source, QStringLiteral("AntiMicroX")}});
 
-        QCOMPARE(result.status, SettingsMigration::Status::Copied);
+        QCOMPARE(result.outcome, SettingsMigration::Outcome::Copied);
         QCOMPARE(result.productName, QStringLiteral("AntiMicroX"));
         QVERIFY(QFile::exists(target()));
         QCOMPARE(read(target()), QStringLiteral("[General]\nLanguage=de\n"));
@@ -114,7 +114,7 @@ class TestSettingsMigration : public QObject
 
         const auto result = SettingsMigration::migrate(nested, {{source, QStringLiteral("AntiMicroX")}});
 
-        QCOMPARE(result.status, SettingsMigration::Status::Copied);
+        QCOMPARE(result.outcome, SettingsMigration::Outcome::Copied);
         QVERIFY(QFile::exists(nested));
     }
 
@@ -125,7 +125,7 @@ class TestSettingsMigration : public QObject
 
         const auto result = SettingsMigration::migrate(target(), {{source, QStringLiteral("AntiMicroX")}});
 
-        QCOMPARE(result.status, SettingsMigration::Status::Copied);
+        QCOMPARE(result.outcome, SettingsMigration::Outcome::Copied);
         QVERIFY2(QFile::exists(source), "the AntiMicroX configuration must not be moved or deleted");
         QCOMPARE(read(source), contents);
     }
@@ -143,10 +143,10 @@ class TestSettingsMigration : public QObject
         const QString antimicro = write("src_antimicro_legacy/settings.ini", "oldest\n");
 
         const auto result = SettingsMigration::migrate(target(), {{antimicrox, QStringLiteral("AntiMicroX")},
-                                                                 {antimicroX, QStringLiteral("antimicroX")},
-                                                                 {antimicro, QStringLiteral("antimicro")}});
+                                                                  {antimicroX, QStringLiteral("antimicroX")},
+                                                                  {antimicro, QStringLiteral("antimicro")}});
 
-        QCOMPARE(result.status, SettingsMigration::Status::Copied);
+        QCOMPARE(result.outcome, SettingsMigration::Outcome::Copied);
         QCOMPARE(result.productName, QStringLiteral("AntiMicroX"));
         QCOMPARE(read(target()), QStringLiteral("newest\n"));
     }
@@ -159,7 +159,7 @@ class TestSettingsMigration : public QObject
         const auto result = SettingsMigration::migrate(
             target(), {{missing, QStringLiteral("AntiMicroX")}, {antimicro, QStringLiteral("antimicro")}});
 
-        QCOMPARE(result.status, SettingsMigration::Status::Copied);
+        QCOMPARE(result.outcome, SettingsMigration::Outcome::Copied);
         QCOMPARE(result.productName, QStringLiteral("antimicro"));
         QCOMPARE(read(target()), QStringLiteral("oldest\n"));
     }
@@ -173,22 +173,22 @@ class TestSettingsMigration : public QObject
 
         const auto result = SettingsMigration::migrate(target(), {{source, QStringLiteral("AntiMicroX")}});
 
-        QCOMPARE(result.status, SettingsMigration::Status::NotNeeded);
+        QCOMPARE(result.outcome, SettingsMigration::Outcome::NotNeeded);
         QCOMPARE(read(target()), QStringLiteral("MINE\n"));
     }
 
     void repeatedMigrationIsIdempotent()
     {
         const QString source = write("antimicrox/antimicrox_settings.ini", "first\n");
-        QCOMPARE(SettingsMigration::migrate(target(), {{source, QStringLiteral("AntiMicroX")}}).status,
-                 SettingsMigration::Status::Copied);
+        QCOMPARE(SettingsMigration::migrate(target(), {{source, QStringLiteral("AntiMicroX")}}).outcome,
+                 SettingsMigration::Outcome::Copied);
 
         // The user edits their RevivalPad settings, then AntiMicroX settings change.
         write("revivalpad/revivalpad_settings.ini", "edited\n");
         write("antimicrox/antimicrox_settings.ini", "second\n");
 
         const auto again = SettingsMigration::migrate(target(), {{source, QStringLiteral("AntiMicroX")}});
-        QCOMPARE(again.status, SettingsMigration::Status::NotNeeded);
+        QCOMPARE(again.outcome, SettingsMigration::Outcome::NotNeeded);
         QCOMPARE(read(target()), QStringLiteral("edited\n"));
     }
 

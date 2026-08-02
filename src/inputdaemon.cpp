@@ -18,7 +18,6 @@
 
 #include "inputdaemon.h"
 
-#include "revivalpadsettings.h"
 #include "common.h"
 #include "globalvariables.h"
 #include "inputdevicebitarraystatus.h"
@@ -26,6 +25,7 @@
 #include "joysensor.h"
 #include "joystick.h"
 #include "logger.h"
+#include "revivalpadsettings.h"
 #include "sdleventreader.h"
 
 #include <QDebug>

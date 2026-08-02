@@ -18,13 +18,13 @@
 
 #include "gamecontroller.h"
 
-#include "revivalpadsettings.h"
 #include "common.h"
 #include "gamecontrollerdpad.h"
 #include "gamecontrollerset.h"
 #include "globalvariables.h"
 #include "joybuttontypes/joycontrolstickbutton.h"
 #include "joycontrolstick.h"
+#include "revivalpadsettings.h"
 
 #include <cmath>
 

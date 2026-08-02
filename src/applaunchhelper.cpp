@@ -18,10 +18,10 @@
 
 #include "applaunchhelper.h"
 
-#include "revivalpadsettings.h"
 #include "globalvariables.h"
 #include "inputdevice.h"
 #include "joybuttontypes/joybutton.h"
+#include "revivalpadsettings.h"
 
 #include <QDebug>
 #include <QMapIterator>
@@ -95,7 +95,8 @@ void AppLaunchHelper::changeMouseRefreshRate()
 
 void AppLaunchHelper::changeGamepadPollRate()
 {
-    int pollRate = settings->value("GamepadPollRate", GlobalVariables::RevivalPadSettings::defaultSDLGamepadPollRate).toInt();
+    int pollRate =
+        settings->value("GamepadPollRate", GlobalVariables::RevivalPadSettings::defaultSDLGamepadPollRate).toInt();
     if (pollRate > 0)
     {
         JoyButton::setGamepadRefreshRate(pollRate, GlobalVariables::JoyButton::gamepadRefreshRate,

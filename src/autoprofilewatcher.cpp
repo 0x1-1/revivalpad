@@ -18,8 +18,8 @@
 
 #include "autoprofilewatcher.h"
 
-#include "revivalpadsettings.h"
 #include "autoprofileinfo.h"
+#include "revivalpadsettings.h"
 
 #include <QApplication>
 #include <QDebug>

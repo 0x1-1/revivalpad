@@ -19,7 +19,6 @@
 #include "joytabwidget.h"
 
 #include "advancestickassignmentdialog.h"
-#include "revivalpadsettings.h"
 #include "axiseditdialog.h"
 #include "buttoneditdialog.h"
 #include "common.h"
@@ -37,6 +36,7 @@
 #include "joysensor.h"
 #include "joystick.h"
 #include "quicksetdialog.h"
+#include "revivalpadsettings.h"
 #include "sensorpushbuttongroup.h"
 #include "setnamesdialog.h"
 #include "stickpushbuttongroup.h"

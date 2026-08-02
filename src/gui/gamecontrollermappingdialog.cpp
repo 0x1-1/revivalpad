@@ -19,9 +19,9 @@
 #include "gamecontrollermappingdialog.h"
 #include "ui_gamecontrollermappingdialog.h"
 
-#include "revivalpadsettings.h"
 #include "common.h"
 #include "inputdevice.h"
+#include "revivalpadsettings.h"
 
 #include <QAbstractButton>
 #include <QAbstractItemModel>

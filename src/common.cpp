@@ -145,13 +145,13 @@ void reloadTranslations(QTranslator *translator, QTranslator *appTranslator, con
 
 // Load application specific translation strings
 #if defined(Q_OS_UNIX)
-    translator->load(QStringLiteral(REVIVALPAD_TRANSLATION_PREFIX) + language,
-                     QApplication::applicationDirPath().append(
-                         "/../share/" REVIVALPAD_TRANSLATION_DIR_NAME "/translations"));
+    translator->load(
+        QStringLiteral(REVIVALPAD_TRANSLATION_PREFIX) + language,
+        QApplication::applicationDirPath().append("/../share/" REVIVALPAD_TRANSLATION_DIR_NAME "/translations"));
 #elif defined(Q_OS_WIN)
-    translator->load(QStringLiteral(REVIVALPAD_TRANSLATION_PREFIX) + language,
-                     QApplication::applicationDirPath().append(
-                         "\\share\\" REVIVALPAD_TRANSLATION_DIR_NAME "\\translations"));
+    translator->load(
+        QStringLiteral(REVIVALPAD_TRANSLATION_PREFIX) + language,
+        QApplication::applicationDirPath().append("\\share\\" REVIVALPAD_TRANSLATION_DIR_NAME "\\translations"));
 #endif
 
     qApp->installTranslator(translator);
