@@ -3,6 +3,12 @@ on:
     release:
         types: [published]
 
+# Uploading release assets needs write access to repository contents. Without
+# this the jobs build fine and then fail on upload with
+# "Resource not accessible by integration".
+permissions:
+    contents: write
+
 # Artifact naming produced by this workflow:
 #   revivalpad_1.0.0_amd64.deb                        (CPack DEB-DEFAULT)
 #   RevivalPad-1.0.0-x86_64.AppImage                  (linuxdeploy + $VERSION)
